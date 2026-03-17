@@ -1,0 +1,21 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: risk-service
+  datasource:
+    url: jdbc:postgresql://postgres:5432/insureflow
+    username: insureflow
+    password: insureflow
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: risk-service
+      auto-offset-reset: earliest
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
