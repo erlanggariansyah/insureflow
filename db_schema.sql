@@ -62,7 +62,7 @@ CREATE TABLE quotations (
     quotation_number VARCHAR(30) UNIQUE NOT NULL,
     customer_id UUID REFERENCES customers(id),
     product_id UUID REFERENCES products(id),
-    agent_id UUID REFERENCES users(id),
+    agent_id UUID REFERENCES agents(id), -- FIXED
     sum_assured DECIMAL(15,2) NOT NULL,
     premium_amount DECIMAL(15,2) NOT NULL,
     policy_term INT NOT NULL,
@@ -78,10 +78,11 @@ CREATE TABLE proposals (
     quotation_id UUID UNIQUE REFERENCES quotations(id),
     customer_id UUID REFERENCES customers(id),
     product_id UUID REFERENCES products(id),
-    agent_id UUID REFERENCES users(id),
+    agent_id UUID REFERENCES agents(id), -- FIXED
     sum_assured DECIMAL(15,2) NOT NULL,
     premium_amount DECIMAL(15,2) NOT NULL,
-    status VARCHAR(30) DEFAULT 'SUBMITTED' CHECK (status IN ('SUBMITTED', 'MEDICAL_REQUIRED', 'UNDERWRITING', 'APPROVED', 'REJECTED')),
+    status VARCHAR(30) DEFAULT 'SUBMITTED' 
+        CHECK (status IN ('SUBMITTED', 'MEDICAL_REQUIRED', 'UNDERWRITING', 'APPROVED', 'REJECTED')),
     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -89,7 +90,8 @@ CREATE TABLE medical_exams (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     proposal_id UUID REFERENCES proposals(id),
     exam_type VARCHAR(50) NOT NULL,
-    status VARCHAR(20) DEFAULT 'PENDING' CHECK (status IN ('PENDING', 'SCHEDULED', 'COMPLETED', 'WAIVED')),
+    status VARCHAR(20) DEFAULT 'PENDING' 
+        CHECK (status IN ('PENDING', 'SCHEDULED', 'COMPLETED', 'WAIVED')),
     result TEXT,
     scheduled_date DATE,
     completed_date DATE
@@ -99,7 +101,7 @@ CREATE TABLE risk_assessments (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     proposal_id UUID UNIQUE REFERENCES proposals(id),
     risk_level VARCHAR(20) CHECK (risk_level IN ('LOW', 'MEDIUM', 'HIGH')),
-    risk_score DECIMAL(3,2),
+    risk_score DECIMAL(5,2),
     assessed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -118,12 +120,13 @@ CREATE TABLE policies (
     proposal_id UUID UNIQUE REFERENCES proposals(id),
     customer_id UUID REFERENCES customers(id),
     product_id UUID REFERENCES products(id),
-    agent_id UUID REFERENCES users(id),
+    agent_id UUID REFERENCES agents(id), -- FIXED
     sum_assured DECIMAL(15,2) NOT NULL,
     premium_amount DECIMAL(15,2) NOT NULL,
     policy_term INT NOT NULL,
     premium_mode VARCHAR(20),
-    status VARCHAR(20) DEFAULT 'INFORCE' CHECK (status IN ('INFORCE', 'LAPSED', 'PAID_UP', 'MATURED', 'SURRENDERED', 'CLAIMED')),
+    status VARCHAR(20) DEFAULT 'INFORCE' 
+        CHECK (status IN ('INFORCE', 'LAPSED', 'PAID_UP', 'MATURED', 'SURRENDERED', 'CLAIMED')),
     issue_date DATE NOT NULL,
     start_date DATE NOT NULL,
     maturity_date DATE NOT NULL,
@@ -131,10 +134,30 @@ CREATE TABLE policies (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE beneficiaries (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    policy_id UUID REFERENCES policies(id),
+    name VARCHAR(100) NOT NULL,
+    relationship VARCHAR(50),
+    percentage DECIMAL(5,2) CHECK (percentage > 0 AND percentage <= 100)
+);
+
+CREATE TABLE claims (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    policy_id UUID REFERENCES policies(id),
+    claim_type VARCHAR(50),
+    claim_amount DECIMAL(15,2),
+    status VARCHAR(20) CHECK (status IN ('SUBMITTED', 'APPROVED', 'REJECTED', 'PAID')),
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    approved_at TIMESTAMP
+);
+
 CREATE TABLE endorsements (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     policy_id UUID REFERENCES policies(id),
-    type VARCHAR(50) NOT NULL CHECK (type IN ('ADDRESS_CHANGE', 'BENEFICIARY_CHANGE', 'SUM_ASSURED_INCREASE', 'PREMIUM_MODE_CHANGE', 'NAME_CHANGE')),
+    type VARCHAR(50) CHECK (
+        type IN ('ADDRESS_CHANGE', 'BENEFICIARY_CHANGE', 'SUM_ASSURED_INCREASE', 'PREMIUM_MODE_CHANGE', 'NAME_CHANGE')
+    ),
     old_value JSONB,
     new_value JSONB,
     status VARCHAR(20) DEFAULT 'PENDING' CHECK (status IN ('PENDING', 'APPROVED', 'REJECTED')),
@@ -147,7 +170,8 @@ CREATE TABLE premium_payments (
     policy_id UUID REFERENCES policies(id),
     amount DECIMAL(15,2) NOT NULL,
     payment_mode VARCHAR(20),
-    status VARCHAR(20) DEFAULT 'PENDING' CHECK (status IN ('PENDING', 'PAID', 'OVERDUE', 'WAIVED')),
+    status VARCHAR(20) DEFAULT 'PENDING' 
+        CHECK (status IN ('PENDING', 'PAID', 'OVERDUE', 'WAIVED')),
     due_date DATE NOT NULL,
     payment_date DATE
 );
@@ -159,7 +183,7 @@ CREATE TABLE loans (
     interest_rate DECIMAL(5,2) DEFAULT 6.00,
     loan_date DATE DEFAULT CURRENT_DATE,
     repayment_date DATE,
-    status VARCHAR(20) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'REPAID', 'OUTSTANDING'))
+    status VARCHAR(20) CHECK (status IN ('ACTIVE', 'REPAID', 'OUTSTANDING'))
 );
 
 CREATE TABLE surrenders (
@@ -167,7 +191,17 @@ CREATE TABLE surrenders (
     policy_id UUID UNIQUE REFERENCES policies(id),
     surrender_date DATE DEFAULT CURRENT_DATE,
     surrender_value DECIMAL(15,2) NOT NULL,
-    status VARCHAR(20) DEFAULT 'PENDING' CHECK (status IN ('PENDING', 'APPROVED', 'REJECTED', 'COMPLETED'))
+    status VARCHAR(20) CHECK (status IN ('PENDING', 'APPROVED', 'REJECTED', 'COMPLETED'))
+);
+
+CREATE TABLE audit_logs (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    entity VARCHAR(50),
+    entity_id UUID,
+    action VARCHAR(20),
+    old_value JSONB,
+    new_value JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_quotations_customer ON quotations(customer_id);
@@ -176,3 +210,4 @@ CREATE INDEX idx_proposals_status ON proposals(status);
 CREATE INDEX idx_policies_customer ON policies(customer_id);
 CREATE INDEX idx_policies_status ON policies(status);
 CREATE INDEX idx_premium_payments_due ON premium_payments(due_date);
+CREATE INDEX idx_claims_policy ON claims(policy_id);

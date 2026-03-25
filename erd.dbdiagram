@@ -1,0 +1,200 @@
+Project InsureFlow {
+  database_type: "PostgreSQL"
+}
+
+Table users {
+  id uuid [pk]
+  username varchar [unique]
+  email varchar [unique]
+  password_hash varchar
+  role varchar
+  full_name varchar
+  is_active boolean
+  created_at timestamp
+}
+
+Table agents {
+  id uuid [pk]
+  user_id uuid [unique, ref: > users.id]
+  agent_code varchar [unique]
+  license_number varchar
+  hierarchy_level varchar
+  joined_date date
+}
+
+Table customers {
+  id uuid [pk]
+  full_name varchar
+  email varchar
+  phone varchar
+  date_of_birth date
+  gender varchar
+  id_number varchar [unique]
+  address text
+  city varchar
+  postal_code varchar
+  created_at timestamp
+}
+
+Table products {
+  id uuid [pk]
+  product_code varchar [unique]
+  product_name varchar
+  type varchar
+  description text
+  min_sum_assured decimal
+  max_sum_assured decimal
+  min_age int
+  max_age int
+  is_active boolean
+}
+
+Table product_rates {
+  id uuid [pk]
+  product_id uuid [ref: > products.id]
+  age_from int
+  age_to int
+  gender varchar
+  rate_per_1000 decimal
+}
+
+Table quotations {
+  id uuid [pk]
+  quotation_number varchar [unique]
+  customer_id uuid [ref: > customers.id]
+  product_id uuid [ref: > products.id]
+  agent_id uuid [ref: > agents.id]
+  sum_assured decimal
+  premium_amount decimal
+  policy_term int
+  premium_mode varchar
+  status varchar
+  valid_until date
+  created_at timestamp
+}
+
+Table proposals {
+  id uuid [pk]
+  proposal_number varchar [unique]
+  quotation_id uuid [unique, ref: > quotations.id]
+  customer_id uuid [ref: > customers.id]
+  product_id uuid [ref: > products.id]
+  agent_id uuid [ref: > agents.id]
+  sum_assured decimal
+  premium_amount decimal
+  status varchar
+  submitted_at timestamp
+}
+
+Table medical_exams {
+  id uuid [pk]
+  proposal_id uuid [ref: > proposals.id]
+  exam_type varchar
+  status varchar
+  result text
+  scheduled_date date
+  completed_date date
+}
+
+Table risk_assessments {
+  id uuid [pk]
+  proposal_id uuid [unique, ref: > proposals.id]
+  risk_level varchar
+  risk_score decimal
+  assessed_at timestamp
+}
+
+Table underwriting_decisions {
+  id uuid [pk]
+  proposal_id uuid [unique, ref: > proposals.id]
+  decided_by uuid [ref: > users.id]
+  decision varchar
+  reason text
+  decided_at timestamp
+}
+
+Table policies {
+  id uuid [pk]
+  policy_number varchar [unique]
+  proposal_id uuid [unique, ref: > proposals.id]
+  customer_id uuid [ref: > customers.id]
+  product_id uuid [ref: > products.id]
+  agent_id uuid [ref: > agents.id]
+  sum_assured decimal
+  premium_amount decimal
+  policy_term int
+  premium_mode varchar
+  status varchar
+  issue_date date
+  start_date date
+  maturity_date date
+  next_premium_due date
+  created_at timestamp
+}
+
+Table beneficiaries {
+  id uuid [pk]
+  policy_id uuid [ref: > policies.id]
+  name varchar
+  relationship varchar
+  percentage decimal
+}
+
+Table claims {
+  id uuid [pk]
+  policy_id uuid [ref: > policies.id]
+  claim_type varchar
+  claim_amount decimal
+  status varchar
+  submitted_at timestamp
+  approved_at timestamp
+}
+
+Table endorsements {
+  id uuid [pk]
+  policy_id uuid [ref: > policies.id]
+  type varchar
+  old_value json
+  new_value json
+  status varchar
+  requested_at timestamp
+  approved_at timestamp
+}
+
+Table premium_payments {
+  id uuid [pk]
+  policy_id uuid [ref: > policies.id]
+  amount decimal
+  payment_mode varchar
+  status varchar
+  due_date date
+  payment_date date
+}
+
+Table loans {
+  id uuid [pk]
+  policy_id uuid [unique, ref: > policies.id]
+  loan_amount decimal
+  interest_rate decimal
+  loan_date date
+  repayment_date date
+  status varchar
+}
+
+Table surrenders {
+  id uuid [pk]
+  policy_id uuid [unique, ref: > policies.id]
+  surrender_date date
+  surrender_value decimal
+  status varchar
+}
+
+Table audit_logs {
+  id uuid [pk]
+  entity varchar
+  entity_id uuid
+  action varchar
+  old_value json
+  new_value json
+  created_at timestamp
+}
