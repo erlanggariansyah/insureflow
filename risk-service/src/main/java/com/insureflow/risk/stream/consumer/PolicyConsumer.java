@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class PolicyConsumer {
     private final RiskService riskService;
 
-    @KafkaListener(topics = TopicConstant.POLICY_CREATED, groupId = "risk-service")
+    @KafkaListener(topics = TopicConstant.POLICY_CREATED, groupId = "risk-service", errorHandler = "sendToDLQ")
     public void consume(CreatePolicyEvent event) {
         riskService.assessRisk(event);
     }

@@ -24,4 +24,9 @@ public class MessageConstant {
     public static final String INTERNAL_SERVER_ERROR = "Internal server error";
     public static final String DATABASE_ERROR = "Database error occurred";
     public static final String INVALID_REQUEST = "Invalid request";
+
+    public static final String EVENT_PUBLISH_FAILED = "Event publish failed";
+    public static final String EVENT_PUBLISH_SUCCESS = "Event publish success to partition {} offset {}";
+
+    public static final String ERROR_DETAILS_PLACEHOLDER = "Error details: ";
 }

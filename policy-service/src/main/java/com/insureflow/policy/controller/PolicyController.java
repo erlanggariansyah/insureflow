@@ -6,6 +6,7 @@ import com.insureflow.policy.constant.URIConstant;
 import com.insureflow.policy.dto.CreatePolicyResponse;
 import com.insureflow.policy.dto.request.CreatePolicyRequest;
 import com.insureflow.policy.entity.Policy;
+import com.insureflow.policy.exception.throwable.KafkaPublishException;
 import com.insureflow.policy.service.PolicyService;
 import com.insureflow.policy.utils.APIResponse;
 import com.insureflow.policy.utils.TraceId;
@@ -23,7 +24,7 @@ public class PolicyController {
     private final PolicyService policyService;
 
     @PostMapping
-    public APIResponse<CreatePolicyResponse> post(@Valid @RequestBody CreatePolicyRequest request) {
+    public APIResponse<CreatePolicyResponse> post(@Valid @RequestBody CreatePolicyRequest request) throws KafkaPublishException {
         CreatePolicyResponse response = policyService.post(request);
         return APIResponse.<CreatePolicyResponse>builder()
                 .message(MessageConstant.POLICY_CREATION_SUCCESS)

@@ -5,9 +5,11 @@ import com.insureflow.policy.constant.PolicyConstant;
 import com.insureflow.policy.dto.CreatePolicyResponse;
 import com.insureflow.policy.dto.request.CreatePolicyRequest;
 import com.insureflow.policy.entity.Policy;
+import com.insureflow.policy.exception.throwable.KafkaPublishException;
 import com.insureflow.policy.repository.PolicyRepository;
 import com.insureflow.policy.stream.event.CreatePolicyEvent;
 import com.insureflow.policy.stream.producer.PolicyProducer;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -15,13 +17,15 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class PolicyService {
     private final PolicyRepository policyRepository;
     private final PolicyProducer policyProducer;
 
-    public CreatePolicyResponse post(CreatePolicyRequest request) {
+    @Transactional
+    public CreatePolicyResponse post(CreatePolicyRequest request) throws KafkaPublishException {
         Policy policy = Policy.builder()
                 .policyNumber(PolicyConstant.generatePolicyNumber())
                 .customerName(request.getCustomerName())

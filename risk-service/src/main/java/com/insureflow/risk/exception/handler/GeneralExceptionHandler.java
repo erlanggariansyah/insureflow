@@ -13,7 +13,7 @@ public class GeneralExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public APIResponse<Object> handle(Exception ex) {
-        log.error("Error details: ", ex);
+        log.error(MessageConstant.ERROR_DETAILS_PLACEHOLDER, ex);
 
         return APIResponse.builder()
                 .message(MessageConstant.INTERNAL_SERVER_ERROR)
