@@ -94,5 +94,19 @@ services:
       SPRING_DATASOURCE_PASSWORD: insureflow
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
+  eureka:
+    build: ./eureka
+    container_name: insureflow-discovery
+    ports:
+      - "8761:8761"
+  
+  api-gateway:
+    build: ./gateway
+    container_name: insureflow-gateway
+    ports:
+      - "8088:8088"
+    depends_on:
+     - eureka
+
 volumes:
   postgres-data:

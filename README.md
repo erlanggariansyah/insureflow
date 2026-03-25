@@ -1,4 +1,4 @@
-Insureflow merupakan sebuah Life Insurance Management System sederhana.
+[ON GOING] Insureflow merupakan sebuah Life Insurance Management System sederhana.
 
 Services:
 1. customer-service, manage data nasabah
