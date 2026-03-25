@@ -188,13 +188,3 @@ Table surrenders {
   surrender_value decimal
   status varchar
 }
-
-Table audit_logs {
-  id uuid [pk]
-  entity varchar
-  entity_id uuid
-  action varchar
-  old_value json
-  new_value json
-  created_at timestamp
-}

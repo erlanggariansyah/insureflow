@@ -194,16 +194,6 @@ CREATE TABLE surrenders (
     status VARCHAR(20) CHECK (status IN ('PENDING', 'APPROVED', 'REJECTED', 'COMPLETED'))
 );
 
-CREATE TABLE audit_logs (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    entity VARCHAR(50),
-    entity_id UUID,
-    action VARCHAR(20),
-    old_value JSONB,
-    new_value JSONB,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
 CREATE INDEX idx_quotations_customer ON quotations(customer_id);
 CREATE INDEX idx_quotations_agent ON quotations(agent_id);
 CREATE INDEX idx_proposals_status ON proposals(status);
