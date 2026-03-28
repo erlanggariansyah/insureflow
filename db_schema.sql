@@ -34,29 +34,6 @@ CREATE TABLE customers (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE products (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    product_code VARCHAR(20) UNIQUE NOT NULL,
-    product_name VARCHAR(100) NOT NULL,
-    type VARCHAR(20) CHECK (type IN ('TERM_LIFE', 'WHOLE_LIFE', 'UNIT_LINK', 'ENDOWMENT')),
-    description TEXT,
-    min_sum_assured DECIMAL(15,2) DEFAULT 10000000,
-    max_sum_assured DECIMAL(15,2) DEFAULT 10000000000,
-    min_age INT DEFAULT 18,
-    max_age INT DEFAULT 65,
-    is_active BOOLEAN DEFAULT true
-);
-
-CREATE TABLE product_rates (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    product_id UUID REFERENCES products(id),
-    age_from INT NOT NULL,
-    age_to INT NOT NULL,
-    gender VARCHAR(10),
-    rate_per_1000 DECIMAL(10,6) NOT NULL,
-    UNIQUE(product_id, age_from, age_to, gender)
-);
-
 CREATE TABLE quotations (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     quotation_number VARCHAR(30) UNIQUE NOT NULL,

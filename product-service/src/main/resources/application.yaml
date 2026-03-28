@@ -1,3 +1,31 @@
+server:
+  port: 8080
 spring:
   application:
-    name: product
+    name: product-service
+  datasource:
+    url: jdbc:postgresql://postgres-product-service:5432/products
+    username: insureflow
+    password: insureflow
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  data:
+    redis:
+      host: redis-product-service
+      port: 6379
+      database: 0
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}

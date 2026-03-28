@@ -36,26 +36,81 @@ Table customers {
   created_at timestamp
 }
 
+Table genders {
+  id int [pk]
+  name varchar
+}
+
 Table products {
   id uuid [pk]
-  product_code varchar [unique]
-  product_name varchar
-  type varchar
-  description text
-  min_sum_assured decimal
-  max_sum_assured decimal
-  min_age int
-  max_age int
+  code varchar [unique]
+  name varchar
+  product_type_id uuid [ref: > product_types.id]
   is_active boolean
+  updated_at timestamp
+  created_at timestamp
 }
 
 Table product_rates {
   id uuid [pk]
   product_id uuid [ref: > products.id]
-  age_from int
-  age_to int
-  gender varchar
-  rate_per_1000 decimal
+  age int
+  gender int
+  rate decimal
+  is_active boolean
+  updated_at timestamp
+  created_at timestamp
+}
+
+Table product_types {
+  id uuid [pk]
+  name varchar
+}
+
+Table methods {
+  id int [pk]
+  name varchar
+}
+
+Table rider_types {
+  id uuid [pk]
+  code varchar [unique]
+  name varchar
+}
+
+Table riders {
+  id uuid [pk]
+  code varchar [unique]
+  name varchar
+  rider_type_id uuid [ref: > rider_types.id]
+  methods int 
+  min_age int
+  max_age int
+  min_sum_assured decimal
+  max_sum_assured decimal
+  is_active boolean
+  updated_at timestamp
+  created_at timestamp
+}
+
+Table rider_rates {
+  id uuid [pk]
+  rider_id uuid [ref: > riders.id]
+  age int
+  gender int
+  rate decimal
+  is_active boolean
+  updated_at timestamp
+  created_at timestamp
+}
+
+Table product_riders {
+  id uuid [pk]
+  rider_id uuid [ref: > riders.id]
+  product_id uuid [ref: > products.id]
+  is_mandatory boolean
+  updated_at timestamp
+  created_at timestamp
 }
 
 Table quotations {
@@ -188,3 +243,17 @@ Table surrenders {
   surrender_value decimal
   status varchar
 }
+
+Table audit_logs {
+  id uuid [pk]
+  entity varchar
+  entity_id uuid
+  action varchar
+  old_value json
+  new_value json
+  created_at timestamp
+}
+
+Ref: "genders"."id" < "product_rates"."age"
+Ref: "methods"."id" < "riders"."methods"
+Ref: "genders"."id" < "rider_rates"."gender"

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-product-service
+  namespace: insureflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-product-service
+  template:
+    metadata:
+      labels:
+        app: redis-product-service
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          args: ["redis-server", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-product-service
+  namespace: insureflow
+spec:
+  selector:
+    app: redis-product-service
+  ports:
+    - port: 6379
+      targetPort: 6379
