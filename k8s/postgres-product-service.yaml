@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-quotation-service
+  name: postgres-product-service
   namespace: insureflow
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres-quotation-service
+      app: postgres-product-service
   template:
     metadata:
       labels:
-        app: postgres-quotation-service
+        app: postgres-product-service
     spec:
       containers:
-        - name: postgres-quotation-service
+        - name: postgres-product-service
           image: postgres:15
           ports:
             - containerPort: 5432
@@ -40,15 +40,15 @@ spec:
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
-            claimName: postgres-quotation-pvc
+            claimName: postgres-product-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-quotation-service
+  name: postgres-product-service
   namespace: insureflow
 spec:
   selector:
-    app: postgres-quotation-service
+    app: postgres-product-service
   ports:
     - port: 5432
