@@ -18,7 +18,6 @@ spring:
       database: 0
   flyway:
     enabled: true
-    locations: classpath:migration
     baseline-on-migrate: true
     baseline-version: 0
 management:
@@ -34,3 +33,9 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+logging:
+  level:
+    root: INFO
+    org.flywaydb: DEBUG
+    org.springframework.orm.jpa: DEBUG
+    org.springframework.jdbc: DEBUG
