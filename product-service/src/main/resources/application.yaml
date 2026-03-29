@@ -20,6 +20,12 @@ spring:
     enabled: true
     baseline-on-migrate: true
     baseline-version: 0
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
 management:
   endpoints:
     web:
