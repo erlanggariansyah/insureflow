@@ -9,6 +9,7 @@ import com.insureflow.product.repository.ProductRiderRepository;
 import com.insureflow.product.repository.ProductTypeRepository;
 import com.insureflow.product.repository.RiderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class ProductService {
     private final ProductRiderRepository productRiderRepository;
     private final RiderRepository riderRepository;
 
+    @Cacheable(value = "productTypes")
     public List<ProductType> getProductTypes() {
         return productTypeRepository.findAll();
     }
