@@ -4,13 +4,13 @@ CREATE TABLE methods (
 );
 
 CREATE TABLE rider_types (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     code VARCHAR(20) UNIQUE NOT NULL,
     name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE riders (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     code VARCHAR(20) UNIQUE NOT NULL,
     name VARCHAR(100) NOT NULL,
     rider_type_id UUID REFERENCES rider_types(id),
@@ -25,7 +25,7 @@ CREATE TABLE riders (
 );
 
 CREATE TABLE rider_rates (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     rider_id UUID REFERENCES riders(id),
     age INT NULL,
     gender INT REFERENCES genders(id),

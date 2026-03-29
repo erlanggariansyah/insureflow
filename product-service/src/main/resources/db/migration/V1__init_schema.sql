@@ -1,10 +1,10 @@
 CREATE TABLE product_types (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(30) UNIQUE NOT NULL
 );
 
 CREATE TABLE products (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     code VARCHAR(20) UNIQUE NOT NULL,
     name VARCHAR(100) NOT NULL,
     product_type_id UUID REFERENCES product_types(id),
@@ -19,7 +19,7 @@ CREATE TABLE genders (
 );
 
 CREATE TABLE product_rates (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     product_id UUID REFERENCES products(id),
     age INT NULL,
     gender INT REFERENCES genders(id),

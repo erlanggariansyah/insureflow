@@ -1,5 +1,5 @@
 CREATE TABLE product_riders (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     product_id UUID REFERENCES products(id) ON DELETE CASCADE,
     rider_id UUID REFERENCES riders(id) ON DELETE CASCADE,
     is_mandatory BOOLEAN DEFAULT false,
