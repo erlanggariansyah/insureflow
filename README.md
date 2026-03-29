@@ -4,7 +4,7 @@
 
 # OpenLife
 
-OpenLife (formerly InsureFlow) is an open-source, modular Core Insurance System platform designed to democratize life insurance technology. Modern architecture provide flexibility, scalability, and cost efficiency, making it easier for insurance companies and Insurtechs to adapt to current technology.
+OpenLife (formerly InsureFlow) is an open-source, modular Core Insurance System platform designed to democratize life insurance technology. Providing flexibility, scalability, and cost efficiency, making it easier for insurance companies and Insurtechs to adapt to current technology.
 
 
 ## Tech Stack
