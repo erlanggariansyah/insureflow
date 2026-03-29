@@ -21,7 +21,7 @@ CREATE TABLE genders (
 CREATE TABLE product_rates (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     product_id UUID REFERENCES products(id),
-    age INT NOT NULL,
+    age INT NULL,
     gender INT REFERENCES genders(id),
     rate DECIMAL(10,6) NOT NULL,
     is_active BOOLEAN DEFAULT true,

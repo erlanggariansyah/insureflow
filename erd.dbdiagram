@@ -113,6 +113,14 @@ Table product_riders {
   created_at timestamp
 }
 
+Table payment_frequencies {
+  id int [pk]
+  code varchar [unique]
+  name varchar
+  factor decimal
+  is_active boolean
+}
+
 Table quotations {
   id uuid [pk]
   quotation_number varchar [unique]
