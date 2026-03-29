@@ -29,7 +29,7 @@ CREATE TABLE rider_rates (
     rider_id UUID REFERENCES riders(id),
     age INT NULL,
     gender INT REFERENCES genders(id),
-    rate DECIMAL(10,6) NOT NULL,
+    rate DECIMAL(15,6) NOT NULL,
     is_active BOOLEAN DEFAULT true,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
