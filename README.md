@@ -1,13 +1,25 @@
-[ON GOING] Insureflow merupakan sebuah Life Insurance Management System sederhana.
 
-Services:
-1. customer-service, manage data nasabah
-2. product-service, manage data product dan rate product
-3. quotation-service, kalkulasi new business
-4. proposal-service, pengajuan new business
-5. risk-service, kalkulasi scoring risk
-6. underwriting-service, approval underwriter
-7. policy-service, manage data polis
-8. billing-service, manage billing
-9. claim-service, manage klaim
-10. audit-service, auditing
+![Logo](https://lh3.googleusercontent.com/d/1_XXgdbUsMDrVBXdZo4AO69bt5-6zMslC)
+
+
+# OpenLife
+
+OpenLife (formerly InsureFlow) is an open-source, modular Core Insurance System platform designed to democratize life insurance technology. It draws inspiration from renowned insurance technologies like LIFE/Asia, but with a modern architecture to provide flexibility, scalability, and cost efficiency, making it easier for insurance companies and Insurtechs to adapt to current technology.
+
+
+## Tech Stack
+
+**Client:** React
+
+**Server:** Spring Boot
+
+
+## Authors
+
+- [@erlanggariansyah](https://www.github.com/erlanggariansyah)
+
+
+## Support
+
+For support, email erlanggariansyah0@gmail.com
+
