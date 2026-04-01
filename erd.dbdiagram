@@ -84,10 +84,6 @@ Table riders {
   name varchar
   rider_type_id uuid [ref: > rider_types.id]
   methods int 
-  min_age int
-  max_age int
-  min_sum_assured decimal
-  max_sum_assured decimal
   is_active boolean
   updated_at timestamp
   created_at timestamp
@@ -119,6 +115,22 @@ Table payment_frequencies {
   name varchar
   factor decimal
   is_active boolean
+}
+
+Table rules {
+  id uuid
+  sub_id uuid
+  type uuid
+  name varchar
+  expression varchar
+  message varchar
+  updated_at timestamp
+  created_at timestamp
+}
+
+Table rule_types {
+  id uuid
+  name varchar
 }
 
 Table quotations {
@@ -262,6 +274,9 @@ Table audit_logs {
   created_at timestamp
 }
 
-Ref: "genders"."id" < "product_rates"."age"
+Ref: "genders"."id" < "product_rates"."gender"
 Ref: "methods"."id" < "riders"."methods"
 Ref: "genders"."id" < "rider_rates"."gender"
+Ref: "products"."id" < "rules"."sub_id"
+Ref: "riders"."id" < "rules"."sub_id"
+Ref: "rule_types"."id" < "rules"."type"

@@ -15,10 +15,6 @@ CREATE TABLE riders (
     name VARCHAR(100) NOT NULL,
     rider_type_id UUID REFERENCES rider_types(id),
     methods INT REFERENCES methods(id),
-    min_age INT NULL,
-    max_age INT NULL,
-    min_sum_assured DECIMAL(15,2) DEFAULT 0,
-    max_sum_assured DECIMAL(15,2),
     is_active BOOLEAN DEFAULT true,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

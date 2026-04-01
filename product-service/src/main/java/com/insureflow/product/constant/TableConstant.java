@@ -12,4 +12,6 @@ public class TableConstant {
     public static final String GENDERS = "genders";
     public static final String METHODS = "methods";
     public static final String PAYMENT_FREQUENCIES = "payment_frequencies";
+    public static final String RULES = "rules";
+    public static final String RULE_TYPES = "rule_types";
 }

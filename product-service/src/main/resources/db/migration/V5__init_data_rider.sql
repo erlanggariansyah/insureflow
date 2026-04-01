@@ -11,17 +11,17 @@ INSERT INTO rider_types (id, code, name) VALUES
 ('660e8400-e29b-41d4-a716-446655440203', 'CRITICAL', 'Critical Illness'),
 ('660e8400-e29b-41d4-a716-446655440204', 'DISMEMBERMENT', 'Dismemberment Benefit');
 
-INSERT INTO riders (id, code, name, rider_type_id, methods, min_age, max_age, min_sum_assured, max_sum_assured) VALUES
+INSERT INTO riders (id, code, name, rider_type_id, methods) VALUES
 ('660e8400-e29b-41d4-a716-446655440300', 'WPB', 'Waiver of Premium Benefit',
- '660e8400-e29b-41d4-a716-446655440200', 3, 18, 60, 0, NULL),
+ '660e8400-e29b-41d4-a716-446655440200', 3),
 ('660e8400-e29b-41d4-a716-446655440301', 'ADB', 'Accidental Death Benefit',
- '660e8400-e29b-41d4-a716-446655440201', 2, 18, 65, 10000000, 5000000000),
+ '660e8400-e29b-41d4-a716-446655440201', 2),
 ('660e8400-e29b-41d4-a716-446655440302', 'HOSP', 'Hospitalization Cash Benefit',
- '660e8400-e29b-41d4-a716-446655440202', 1, 0, 70, 0, NULL),
+ '660e8400-e29b-41d4-a716-446655440202', 1),
 ('660e8400-e29b-41d4-a716-446655440303', 'CI37', 'Critical Illness 37 Diseases',
- '660e8400-e29b-41d4-a716-446655440203', 4, 18, 60, 50000000, 2000000000),
+ '660e8400-e29b-41d4-a716-446655440203', 4),
 ('660e8400-e29b-41d4-a716-446655440304', 'PAD', 'Personal Accident Dismemberment',
- '660e8400-e29b-41d4-a716-446655440204', 2, 18, 65, 10000000, 3000000000);
+ '660e8400-e29b-41d4-a716-446655440204', 2);
 
 INSERT INTO rider_rates (id, rider_id, age, gender, rate) VALUES
 (gen_random_uuid(), '660e8400-e29b-41d4-a716-446655440301', 18, NULL, 0.250000),

@@ -10,6 +10,9 @@ import com.insureflow.product.repository.ProductTypeRepository;
 import com.insureflow.product.repository.RiderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,5 +49,13 @@ public class ProductService {
         }
 
         return riders;
+    }
+
+    public boolean validate(String expression, Object data) {
+        ExpressionParser parser = new SpelExpressionParser();
+        StandardEvaluationContext context = new StandardEvaluationContext();
+        context.setVariable("input", data);
+
+        return Boolean.TRUE.equals(parser.parseExpression(expression).getValue(context, Boolean.class));
     }
 }
