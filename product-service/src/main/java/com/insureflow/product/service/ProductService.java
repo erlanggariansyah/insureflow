@@ -1,5 +1,6 @@
 package com.insureflow.product.service;
 
+import com.insureflow.product.constant.AttributeConstant;
 import com.insureflow.product.entity.Product;
 import com.insureflow.product.entity.ProductRider;
 import com.insureflow.product.entity.ProductType;
@@ -54,7 +55,7 @@ public class ProductService {
     public boolean validate(String expression, Object data) {
         ExpressionParser parser = new SpelExpressionParser();
         StandardEvaluationContext context = new StandardEvaluationContext();
-        context.setVariable("input", data);
+        context.setVariable(AttributeConstant.INPUT, data);
 
         return Boolean.TRUE.equals(parser.parseExpression(expression).getValue(context, Boolean.class));
     }

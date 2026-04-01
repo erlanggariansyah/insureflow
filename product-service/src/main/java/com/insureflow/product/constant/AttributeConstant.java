@@ -13,4 +13,5 @@ public class AttributeConstant {
     public static final String STATUS = "status";
     public static final String TRACE_ID = "traceId";
     public static final String DATA = "data";
+    public static final String INPUT = "input";
 }
