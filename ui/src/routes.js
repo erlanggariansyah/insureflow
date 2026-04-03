@@ -5,6 +5,7 @@ import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/tables";
+import ProductView from "views/admin/product";
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -25,7 +26,7 @@ const routes = [
     layout: "/console",
     path: "default",
     icon: <MdDashboard className="h-6 w-6" />,
-    component: <MainDashboard />,
+    component: <ProductView />,
   },
   // {
   //   name: "Main Dashboard",

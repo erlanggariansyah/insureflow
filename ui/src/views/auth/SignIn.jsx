@@ -46,12 +46,6 @@ export default function SignIn() {
                 Keep me logged In
               </p>
             </div>
-            <a
-              className="text-sm font-semibold text-blue-800"
-              href=" "
-            >
-              Forgot Password?
-            </a>
           </div>
           <button 
             onClick={handleSignIn}
