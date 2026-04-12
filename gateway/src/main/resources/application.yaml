@@ -12,16 +12,6 @@ spring:
       httpclient:
         connect-timeout: 5000
         response-timeout: 10s
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-            allowedHeaders: "*"
       routes:
         - id: auth-service
           uri: lb://auth-service

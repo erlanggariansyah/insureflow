@@ -34,16 +34,21 @@ export default function Auth() {
               </div>
             </div>
             <div className="absolute right-0 hidden h-full min-h-screen md:block lg:w-[49vw] 2xl:w-[44vw]">
-              <div
-                className="absolute flex h-full w-full items-center justify-center bg-[#344e86]"
-              >
-                <div className="flex flex-col items-center">
+              <div className="absolute flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-blue-700 via-blue-600 to-blue-400 overflow-hidden">
+                
+                {/* Decorative Background Modern Elements */}
+                <div className="absolute -top-[15%] -left-[10%] h-[600px] w-[600px] rounded-full bg-white opacity-10 mix-blend-overlay blur-3xl"></div>
+                <div className="absolute -bottom-[15%] -right-[10%] h-[700px] w-[700px] rounded-full bg-blue-200 opacity-20 mix-blend-overlay blur-3xl"></div>
+                
+                {/* Content */}
+                <div className="flex flex-col items-center z-10 px-10">
                   <img 
                     src={logo} 
                     alt="OpenLife Logo" 
-                    className="w-96 h-96 object-contain mb-4 filter brightness-0 invert" 
+                    className="w-80 h-80 object-contain filter brightness-0 invert drop-shadow-[0_20px_20px_rgba(0,0,0,0.2)] transition-transform duration-700 hover:scale-105" 
                   />
                 </div>
+
               </div>
             </div>
           </div>
