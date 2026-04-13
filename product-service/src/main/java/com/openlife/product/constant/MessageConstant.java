@@ -32,4 +32,9 @@ public class MessageConstant {
     public static final String PRODUCT_RETRIEVE_SUCCESS = "Product retrieved successfully";
     public static final String RIDER_RETRIEVE_SUCCESS = "Rider retrieved successfully";
     public static final String RIDER_TYPE_RETRIEVE_SUCCESS = "Rider Type retrieved successfully";
+    public static final String RATE_RETRIEVE_SUCCESS = "Rate retrieved successfully";
+    public static final String RULE_RETRIEVE_SUCCESS = "Rule retrieved successfully";
+    public static final String GENDER_RETRIEVE_SUCCESS = "Gender retrieved successfully";
+    public static final String PAYMENT_FREQUENCY_RETRIEVE_SUCCESS = "Payment Frequency retrieved successfully";
+    public static final String RULE_TYPE_RETRIEVE_SUCCESS = "Rule Type retrieved successfully";
 }

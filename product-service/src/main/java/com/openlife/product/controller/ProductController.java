@@ -7,6 +7,12 @@ import com.openlife.product.constant.URIConstant;
 import com.openlife.product.entity.Product;
 import com.openlife.product.entity.ProductType;
 import com.openlife.product.entity.Rider;
+import com.openlife.product.entity.Rule;
+import com.openlife.product.entity.ProductRate;
+import com.openlife.product.entity.RiderType;
+import com.openlife.product.entity.Gender;
+import com.openlife.product.entity.PaymentFrequency;
+import com.openlife.product.entity.RuleType;
 import com.openlife.product.exception.constraint.annotation.ExistProductId;
 import com.openlife.product.exception.constraint.annotation.ExistProductTypeId;
 import com.openlife.product.service.ProductService;
@@ -60,6 +66,17 @@ public class ProductController {
                 .build();
     }
 
+    @GetMapping(URIConstant.ALL)
+    public APIResponse<List<Product>> getAllProducts() {
+        List<Product> response = productService.getAllProducts();
+        return APIResponse.<List<Product>>builder()
+                .message(MessageConstant.PRODUCT_RETRIEVE_SUCCESS)
+                .status(HttpStatus.OK.value())
+                .traceId(TraceId.getTraceId())
+                .data(response)
+                .build();
+    }
+
     @GetMapping(URIConstant.RIDERS)
     public APIResponse<List<Rider>> getRidersByProductId(
             @RequestParam(AttributeConstant.PRODUCT_ID)
@@ -69,6 +86,98 @@ public class ProductController {
         List<Rider> response = productService.getRidersByProductId(productId);
         return APIResponse.<List<Rider>>builder()
                 .message(MessageConstant.RIDER_RETRIEVE_SUCCESS)
+                .status(HttpStatus.OK.value())
+                .traceId(TraceId.getTraceId())
+                .data(response)
+                .build();
+    }
+
+    @GetMapping(URIConstant.RIDERS_ALL)
+    public APIResponse<List<Rider>> getAllRiders() {
+        List<Rider> response = productService.getAllRiders();
+        return APIResponse.<List<Rider>>builder()
+                .message(MessageConstant.RIDER_RETRIEVE_SUCCESS)
+                .status(HttpStatus.OK.value())
+                .traceId(TraceId.getTraceId())
+                .data(response)
+                .build();
+    }
+
+    @GetMapping(URIConstant.RATES_ALL)
+    public APIResponse<List<ProductRate>> getAllRates() {
+        List<ProductRate> response = productService.getAllRates();
+        return APIResponse.<List<ProductRate>>builder()
+                .message(MessageConstant.RATE_RETRIEVE_SUCCESS)
+                .status(HttpStatus.OK.value())
+                .traceId(TraceId.getTraceId())
+                .data(response)
+                .build();
+    }
+
+    @GetMapping(URIConstant.RULES_ALL)
+    public APIResponse<List<Rule>> getAllRules() {
+        List<Rule> response = productService.getAllRules();
+        return APIResponse.<List<Rule>>builder()
+                .message(MessageConstant.RULE_RETRIEVE_SUCCESS)
+                .status(HttpStatus.OK.value())
+                .traceId(TraceId.getTraceId())
+                .data(response)
+                .build();
+    }
+
+    @GetMapping(URIConstant.RIDER_TYPES)
+    public APIResponse<List<RiderType>> getAllRiderTypes() {
+        List<RiderType> response = productService.getAllRiderTypes();
+        return APIResponse.<List<RiderType>>builder()
+                .message(MessageConstant.RIDER_TYPE_RETRIEVE_SUCCESS)
+                .status(HttpStatus.OK.value())
+                .traceId(TraceId.getTraceId())
+                .data(response)
+                .build();
+    }
+
+    @GetMapping(URIConstant.GENDERS)
+    public APIResponse<List<Gender>> getAllGenders() {
+        List<Gender> response = productService.getAllGenders();
+        return APIResponse.<List<Gender>>builder()
+                .message(MessageConstant.GENDER_RETRIEVE_SUCCESS)
+                .status(HttpStatus.OK.value())
+                .traceId(TraceId.getTraceId())
+                .data(response)
+                .build();
+    }
+
+    @GetMapping(URIConstant.PAYMENT_FREQUENCIES)
+    public APIResponse<List<PaymentFrequency>> getAllPaymentFrequencies() {
+        List<PaymentFrequency> response = productService.getAllPaymentFrequencies();
+        return APIResponse.<List<PaymentFrequency>>builder()
+                .message(MessageConstant.PAYMENT_FREQUENCY_RETRIEVE_SUCCESS)
+                .status(HttpStatus.OK.value())
+                .traceId(TraceId.getTraceId())
+                .data(response)
+                .build();
+    }
+
+    @GetMapping(URIConstant.RULE_TYPES)
+    public APIResponse<List<RuleType>> getAllRuleTypes() {
+        List<RuleType> response = productService.getAllRuleTypes();
+        return APIResponse.<List<RuleType>>builder()
+                .message(MessageConstant.RULE_TYPE_RETRIEVE_SUCCESS)
+                .status(HttpStatus.OK.value())
+                .traceId(TraceId.getTraceId())
+                .data(response)
+                .build();
+    }
+
+    @GetMapping(URIConstant.RATES_LOOKUP)
+    public APIResponse<java.math.BigDecimal> lookupRate(
+            @RequestParam("productId") UUID productId,
+            @RequestParam("age") Integer age,
+            @RequestParam("gender") Integer gender
+    ) {
+        java.math.BigDecimal response = productService.lookupRate(productId, age, gender);
+        return APIResponse.<java.math.BigDecimal>builder()
+                .message("Rate lookup successful")
                 .status(HttpStatus.OK.value())
                 .traceId(TraceId.getTraceId())
                 .data(response)

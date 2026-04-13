@@ -12,6 +12,16 @@ import com.openlife.product.repository.ProductRiderRepository;
 import com.openlife.product.repository.ProductTypeRepository;
 import com.openlife.product.repository.RiderRepository;
 import com.openlife.product.repository.RuleRepository;
+import com.openlife.product.repository.ProductRateRepository;
+import com.openlife.product.entity.ProductRate;
+import com.openlife.product.entity.RiderType;
+import com.openlife.product.entity.Gender;
+import com.openlife.product.entity.PaymentFrequency;
+import com.openlife.product.entity.RuleType;
+import com.openlife.product.repository.RiderTypeRepository;
+import com.openlife.product.repository.GenderRepository;
+import com.openlife.product.repository.PaymentFrequencyRepository;
+import com.openlife.product.repository.RuleTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.expression.ExpressionParser;
@@ -33,6 +43,11 @@ public class ProductService {
     private final ProductRiderRepository productRiderRepository;
     private final RiderRepository riderRepository;
     private final RuleRepository ruleRepository;
+    private final ProductRateRepository productRateRepository;
+    private final RiderTypeRepository riderTypeRepository;
+    private final GenderRepository genderRepository;
+    private final PaymentFrequencyRepository paymentFrequencyRepository;
+    private final RuleTypeRepository ruleTypeRepository;
 
     @Cacheable(value = "productTypes")
     public List<ProductType> getProductTypes() {
@@ -41,6 +56,42 @@ public class ProductService {
 
     public List<Product> getProductsByProductTypeId(UUID productTypeId) {
         return productRepository.findByProductTypeIdAndIsActiveTrue(productTypeId);
+    }
+
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    public List<Rider> getAllRiders() {
+        return riderRepository.findAll();
+    }
+
+    public List<ProductRate> getAllRates() {
+        return productRateRepository.findAll();
+    }
+
+    public List<Rule> getAllRules() {
+        return ruleRepository.findAll();
+    }
+
+    public List<RiderType> getAllRiderTypes() {
+        return riderTypeRepository.findAll();
+    }
+
+    public List<Gender> getAllGenders() {
+        return genderRepository.findAll();
+    }
+
+    public List<PaymentFrequency> getAllPaymentFrequencies() {
+        return paymentFrequencyRepository.findAll();
+    }
+
+    public List<RuleType> getAllRuleTypes() {
+        return ruleTypeRepository.findAll();
+    }
+
+    public java.math.BigDecimal lookupRate(UUID productId, Integer age, Integer genderId) {
+        return productRateRepository.findRate(productId, age, genderId);
     }
 
     public List<Rider> getRidersByProductId(UUID productId) {

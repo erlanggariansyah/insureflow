@@ -2,6 +2,12 @@ import React from "react";
 
 // Admin Imports
 import ProductView from "views/admin/product";
+import ProductList from "views/admin/product-list";
+import RiderList from "views/admin/rider-list";
+import RateList from "views/admin/rate-list";
+import RuleList from "views/admin/rule-list";
+import ProductTypeList from "views/admin/product-type-list";
+import PaymentFrequencyList from "views/admin/payment-frequency-list";
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -11,7 +17,7 @@ import {
   MdHome, MdAdminPanelSettings, MdPeople, MdRequestQuote,
   MdOutlinePolicy, MdPayment, MdGavel, MdListAlt, MdLock,
   MdShield, MdTrendingUp, MdRule, MdSecurity, MdDashboard,
-  MdPieChart, MdOutlineAccountBalance
+  MdPieChart, MdOutlineAccountBalance, MdCategory, MdUpdate
 } from "react-icons/md";
 
 // Note: Unimplemented views return simple placeholders.
@@ -48,28 +54,42 @@ const routes = [
     layout: "/console",
     path: "products",
     icon: <MdShield className="h-5 w-5" />,
-    component: <MockView title="Products" />,
+    component: <ProductList />,
+  },
+  {
+    name: "Product Types",
+    layout: "/console",
+    path: "product-types",
+    icon: <MdCategory className="h-5 w-5" />,
+    component: <ProductTypeList />,
   },
   {
     name: "Riders",
     layout: "/console",
     path: "riders",
     icon: <MdAdminPanelSettings className="h-5 w-5" />,
-    component: <MockView title="Riders" />,
+    component: <RiderList />,
   },
   {
     name: "Rates",
     layout: "/console",
     path: "rates",
     icon: <MdTrendingUp className="h-5 w-5" />,
-    component: <MockView title="Rates" />,
+    component: <RateList />,
+  },
+  {
+    name: "Payment Frequencies",
+    layout: "/console",
+    path: "payment-frequencies",
+    icon: <MdUpdate className="h-5 w-5" />,
+    component: <PaymentFrequencyList />,
   },
   {
     name: "Rules",
     layout: "/console",
     path: "rules",
     icon: <MdRule className="h-5 w-5" />,
-    component: <MockView title="Rules" />,
+    component: <RuleList />,
   },
   {
     name: "Customers",
@@ -147,7 +167,7 @@ const routes = [
     component: <MockView title="Surrenders" />,
   },
   {
-    name: "Investment (Unit Link)",
+    name: "Investment",
     isCategory: true,
   },
   {

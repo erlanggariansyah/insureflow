@@ -383,9 +383,8 @@ const ProductView = () => {
         <div className="flex w-[280px] flex-col rounded-2xl bg-gradient-to-b from-white to-gray-50 border border-gray-100 p-5 shadow-xl shadow-gray-200/50 dark:border-navy-700 dark:from-navy-800 dark:to-navy-900 dark:shadow-navy-900">
           <div className="mb-6 flex flex-col">
             <h2 className="text-lg font-bold text-navy-700 dark:text-white">Workspace</h2>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Drag components to canvas</p>
           </div>
-          
+
           <div className="flex-1 space-y-3 overflow-y-auto pr-1 custom-scrollbar">
             {draggableItems.map((item, i) => (
               <div
@@ -406,15 +405,15 @@ const ProductView = () => {
           </div>
 
           <div className="mt-4 flex flex-col gap-3 border-t border-gray-200 pt-5 dark:border-navy-700">
-            <button 
-              onClick={onAutoLayout} 
+            <button
+              onClick={onAutoLayout}
               className="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white p-2.5 text-sm font-bold text-navy-700 transition hover:bg-gray-50 dark:border-navy-600 dark:bg-navy-800 dark:text-white dark:hover:bg-navy-700"
             >
               <MdAutoGraph className="h-5 w-5 text-gray-500" />
               Auto-Align Canvas
             </button>
-            <button 
-              onClick={onSaveConfig} 
+            <button
+              onClick={onSaveConfig}
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-400 p-3 text-sm font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:scale-[1.02] hover:shadow-blue-500/50 active:scale-95"
             >
               <MdSave className="h-5 w-5" />
